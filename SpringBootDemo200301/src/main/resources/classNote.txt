@@ -1,0 +1,68 @@
+============== Day 01 ====================
+知识回顾
+	spring
+	mvc
+	maven
+		读取 pom 寻找相应的 jar
+		远程中央库、本地中央库
+spring boot简介
+	整合了主流的第三方框架，形成的一套快速开发的框架；
+	特性
+		快速开发；
+		pom：以starter形式，按组类聚了多条jar，形成的单条依赖、通过父子继承的方式，方便进行版本管理；
+		“习惯优于配置”理念，简化配置，没有 web.xml
+		bean注入；全注解的方式引入开发；
+		内嵌 servlet 容器，无需外置
+		方便我们监控
+	mvc、boot、cloud
+		mvc：web框架；
+		boot：垂直的框架、集成者；
+		cloud：分布式框架，boot + cloud = 分布式的开发；
+	why
+		配置、开发、部署简单
+常用的注解
+	@SpringBootApplication ---- 启动类
+	@Configuration ---- 相当于 <beans></beans>
+	@Bean ---- <bean></bean>
+	@Component ---- 注册为spring 组件
+	@Aspect ---- aop
+		@Pointcut、@Before……
+	@WebFilter ---- 过滤器
+	@Controller 、@RestController
+		@RequestBody、@PathVariable、@RequestMapping、@PostMapping、@responsebody
+	@Service
+	@Mapper
+	@Autowired、@Resource
+搭建0配置boot框架
+提供第一个接口，返回描述信息
+运行的方式
+	main方法
+	java命令的方式：jar、war
+	部署到外置的容器运行
+		1、内置 tomcat jar 和外置 tomcat jar 冲突的问题 ---- 手动引入 spring-boot-starter-tomcat，并指定 scope 为 provided；
+		2、无 web.xml 的问题 ---- 启动类继承 SpringBootServletInitializer， 重写 configure 方法，将启动类加入到 servlet 配置源中；
+	
+Git
+	GitHub： https://github.com/hymanHu/200301.git
+	命令
+		git clone https://github.com/hymanHu/200301.git
+		git checkout -b dev -t origin/master ---- 从 master 分支创建 dev 分支
+		git push origin HEAD ---- 将本地创建的 dev 分支，push 到远程
+		
+		git add README.md ---- 将修改或新增内容添加到提交序列
+		git commit -m "test" ---- 将提交序列内容 commit 到本地代码仓库
+		git push origin master ---- 将本地仓库的变更 push 到远程仓库
+		
+		
+作业
+	1、创建 spring boot 项目，提供第一个接口；
+	2、war部署到外置的tomcat，如何运行；
+	3、创建 GitHub 帐号和远程代码仓库，并将本地代码提交到远程代码仓库；
+	
+	
+	
+	
+	
+	
+	
+		
