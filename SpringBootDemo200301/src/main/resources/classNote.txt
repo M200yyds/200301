@@ -71,7 +71,7 @@ Git
 	2、war部署到外置的tomcat，如何运行；
 	3、创建 GitHub 帐号和远程代码仓库，并将本地代码提交到远程代码仓库；
 	
-============== Day 01 ====================
+============== Day 02 ====================
 配置文件
 	全局：application.properties || application.yml
 	优先级
@@ -125,6 +125,25 @@ Logback
 		spring.devtools.restart.additional-paths=src/main/java
 	步骤三：应用；
 		修改 java 代码，自动重启项目；
+		
+http&https
+	简介
+		http：超文本的传输协议，80，明文传输、不安全；
+		https：安全的超文本传输协议，443，加密传输；
+		SSL：
+			CA证书中心，签发三种证书，普通、企业、增强型
+			自己生成；keytool -genkey -alias tomcat -keyalg RSA
+	步骤一：引入 jar；
+		无需引入；
+	步骤二：配置；
+		将.keystore放置到 classpath 下
+		全局配置
+			# for dev tools
+			spring.devtools.restart.enabled=true
+			spring.devtools.restart.additional-paths=src/main/java
+	步骤三：应用；
+		
+		
 	
 作业
 	1、完成 /test/config 接口，读取配置文件内容；
