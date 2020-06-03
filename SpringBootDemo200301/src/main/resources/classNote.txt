@@ -83,9 +83,54 @@ Git
 			内置
 				src\main\resources\config
 				src\main\resources
+	读取
+		全局配置文件
+			直接使用 @Value 注解读取
+		非全局性配置文件
+			注册为组件
+			绑定配置文件
+			使用 @Value 注解 || @ConfigurationProperties(prefix = "com.test")
+
+Logback
+	步骤一：引入 jar；
+		已经引入，无需书写 pom；
+	步骤二：配置；
+		log配置文件
+		application.xml 指定 log 配置文件；
+	步骤三：应用；
+		在需要输出的地方按照不同级别打印日志；
+
+多环境配置
+	步骤一：引入 jar；
+		无需修改 pom；
+	步骤二：配置；
+		定义不同环境的配置文件，将不同的配置书写到对应的环境配置文件中
+			格式：application-{profile}.properties
+				application-dev.properties
+				application-live.properties
+		全局配置文件，指定环境
+			spring.profiles.active=dev
+	步骤三：应用；
 	
+热部署配置
+	步骤一：引入 jar；
+		<!-- spring dev tools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+	步骤二：配置；
+		# for dev tools
+		spring.devtools.restart.enabled=true
+		spring.devtools.restart.additional-paths=src/main/java
+	步骤三：应用；
+		修改 java 代码，自动重启项目；
 	
-	
+作业
+	1、完成 /test/config 接口，读取配置文件内容；
+	2、完成 /test/log 接口；
+	3、引入 dev、live多环境配置；
+	4、引入热部署配置；
 	
 	
 	
