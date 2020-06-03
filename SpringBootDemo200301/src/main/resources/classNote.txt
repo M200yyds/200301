@@ -24,7 +24,8 @@ spring boot简介
 	@SpringBootApplication ---- 启动类
 	@Configuration ---- 相当于 <beans></beans>
 	@Bean ---- <bean></bean>
-	@Component ---- 注册为spring 组件
+	@Component ---- 注册为 spring 组件
+	@Value ---- 读取配置文件的值
 	@Aspect ---- aop
 		@Pointcut、@Before……
 	@WebFilter ---- 过滤器
@@ -53,11 +54,35 @@ Git
 		git commit -m "test" ---- 将提交序列内容 commit 到本地代码仓库
 		git push origin master ---- 将本地仓库的变更 push 到远程仓库
 		
+		1、将远程代码仓库 clone 到本地；
+		2、在代码仓库创建代码；
+		3、add 将新增代码 添加到 提交序列
+		4、commit 将提交序列 commit 到本地仓库， -m ""
+		5、push 将本地仓库 push 到远程；
+		
+		git branch -a
+		Git status
+		
+	
+		
 		
 作业
 	1、创建 spring boot 项目，提供第一个接口；
 	2、war部署到外置的tomcat，如何运行；
 	3、创建 GitHub 帐号和远程代码仓库，并将本地代码提交到远程代码仓库；
+	
+============== Day 01 ====================
+配置文件
+	全局：application.properties || application.yml
+	优先级
+		相同位置：properties >  yml
+		不同位置
+			外置
+				和 jar 平级的 config 目录
+				和 jar 平级
+			内置
+				src\main\resources\config
+				src\main\resources
 	
 	
 	
