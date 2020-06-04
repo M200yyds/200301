@@ -31,8 +31,13 @@ spring boot简介
 	@WebFilter ---- 过滤器
 	@Controller 、@RestController
 		@RequestMapping ---- 指定请求相关信息
-		@PathVariable --- 获取 path 路劲参数
-		@RequestParam ---- 获取Url后面的查询参数
+		@PostMapping ---- 指定 post 请求
+			consumes ---- 进入控制器的数据类型：apllication/json
+		参数注解
+			@PathVariable --- 获取 path 路劲参数
+			@RequestParam ---- 获取Url后面的查询参数
+			@RequestBody ---- 接收 json 数据
+		
 		@RequestBody、@PathVariable、@RequestMapping、@PostMapping、@responsebody
 	@Service
 	@Mapper
@@ -65,9 +70,6 @@ Git
 		
 		git branch -a
 		Git status
-		
-	
-		
 		
 作业
 	1、创建 spring boot 项目，提供第一个接口；
@@ -210,6 +212,30 @@ orm框架
 		多个查询参数，使用一个vo对象包装查询参数
 		路劲一致的情况，通过type类型区别
 		/api
+		
+组合查询接口
+	需求
+		根据 countryId 查询 country 对象
+		根据 countryName 查询 country 对象
+	问题
+		Statement returned more than one row, where no more than one was expected.
+		List导包错误
+	
+分页查询
+	需求
+		将 countryId 查询到的 cities 进行分页；
+		
+多条件查询
+	需求
+		给定多个查询参数，查询List<City>，返回分页数据
+		
+作业
+	getCitiesByCountryId 接口
+	getCityByName 接口
+	getCitiesByPage 接口
+	getCountryByCountryId 接口
+	getCountryByCountryName 接口
+	
 			
 		
 	
