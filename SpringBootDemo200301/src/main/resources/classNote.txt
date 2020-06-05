@@ -250,6 +250,83 @@ orm框架
 	需求，根据 cityId 删除对应的数据
 	
 事务
+
+引入 jpa
+	步骤一：引入 jar；
+		<!-- jpa -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+	步骤二：配置；
+		# for jpa
+		#validate：加载时，验证创建数据库表结构；
+		#create：每次加载重新创建数据库表结构；
+		#create-drop：加载时创建，退出是删除表结构；
+		#update：加载时动态变更表结构，不影响数据；
+		# 动态生成表策略
+		spring.jpa.hibernate.ddl-auto=update
+		# 命名规则策略，默认：驼峰-下划线，下面配置：驼峰-驼峰
+		#spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+		# 指定数据库表的引擎为InnoDB，支持事务
+		spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
+		spring.jpa.show-sql=true
+		spring.jpa.properties.hibernate.format_sql=true
+		# hibernateLazyInitializer 异常解决方案
+		spring.jackson.serialization.fail-on-empty-beans=false
+		# 控制台打印sql
+		logging.level.org.hibernate.SQL=DEBUG
+		logging.level.org.hibernate.type.descriptor.sql.BasicBinder=trace
+	步骤三：应用；
+	
+自动生成表功能
+	重写 hibernate core 包里面的 PropertyContainer 类，将 TreeMap 变成 LinkedHashMap；
+	
+redis
+	步骤一：引入 jar；
+		<!-- redis -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<!-- 缓存连接池依赖 jar -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+		</dependency>
+	步骤二：配置；
+		application.properties
+			# for Redis
+			spring.redis.database=0
+			spring.redis.host=127.0.0.1
+			spring.redis.port=6379
+			spring.redis.password=111111
+			spring.redis.timeout=300
+
+			# for Lettuce
+			spring.redis.lettuce.pool.max-active=8
+			spring.redis.lettuce.pool.max-wait=10000
+			spring.redis.lettuce.pool.max-idle=8
+			spring.redis.lettuce.pool.min-idle=0
+			spring.redis.lettuce.shutdown-timeout=100
+		RedisConfig.java
+			重写 redisTemplate：阅读 RedisAutoConfiguration.java 源码，该配置类中为我们配置了 RedisTemplate<Object, Object> 和 StringRedisTemplate 两个bean，其中 RedisTemplate 泛型是两个 Object，对我们来说操作并不方便，会有类型转换的代码，RedisTemplate<String, Object> 更满足我们的需求，@ConditionalOnMissingBean(name = "redisTemplate") 注解也方便我们自定义 redisTemplate 来替换该 bean；
+			定义 key-value 序列化方式：RedisTemplate 中 defaultSerializer 为 JdkSerializationRedisSerializer，并不方便数据传递，key 采用 stringSerializer，value 采用 jacksonSerializer 的方式更符合我们的需求，所以，我们需要重新定义 key-value 的序列化方式；
+			重新定义 CacheManager，因为我们改变了 value 的序列化方式，CacheManager 也需要重新定义；
+			重新定义缓存 key 的生成策略；
+		
+	步骤三：应用；
+		1、工具类的包装；
+		需求： 通过 countryId 从 mysql 查询城市列表，将城市列表放入 redis 数据库，并读取出来，以接口形式返回；
+		
+
+
+作业
+	insetCity 接口
+	updateCity 接口
+	deleteCity 接口
+	migrateCitiesByCountryId 接口
+	
 	
 			
 		
