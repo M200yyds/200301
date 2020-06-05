@@ -2,11 +2,13 @@ package com.hqyj.SpringBootDemo.modules.test.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.hqyj.SpringBootDemo.modules.common.vo.SearchVo;
 import com.hqyj.SpringBootDemo.modules.test.entity.City;
@@ -55,5 +57,11 @@ public interface CityDao {
 			+ "values (#{cityName}, #{localCityName}, #{countryId}, #{dateCreated})")
 	@Options(useGeneratedKeys = true, keyColumn = "city_id", keyProperty = "cityId")
 	void insetCity(City city);
+	
+	@Update("update m_city set local_city_name = #{localCityName} where city_id = #{cityId}")
+	void updateCity(City city);
+	
+	@Delete("delete from m_city where city_id = #{cityId}")
+	void deleteCity(int cityId);
 	
 }

@@ -32,11 +32,14 @@ spring boot简介
 	@Controller 、@RestController
 		@RequestMapping ---- 指定请求相关信息
 		@PostMapping ---- 指定 post 请求
-			consumes ---- 进入控制器的数据类型：apllication/json
+			consumes ---- 进入控制器的数据类型
+				apllication/json --- json
+				application/x-www-form-urlencoded ---- form
 		参数注解
 			@PathVariable --- 获取 path 路劲参数
 			@RequestParam ---- 获取Url后面的查询参数
 			@RequestBody ---- 接收 json 数据
+			@ModelAttribute ---- 接收我们 form 表单数据
 		
 		@RequestBody、@PathVariable、@RequestMapping、@PostMapping、@responsebody
 	@Service
@@ -235,6 +238,18 @@ orm框架
 	getCitiesByPage 接口
 	getCountryByCountryId 接口
 	getCountryByCountryName 接口
+	getCitiesBySearchVo 接口
+	
+============== Day 04 ====================
+增加接口
+	需要一个 result 对象
+	需求：提供一个新增 city 的接口
+修改接口
+	需求：提供一个修改 city 对象的接口
+删除接口
+	需求，根据 cityId 删除对应的数据
+	
+事务
 	
 			
 		
