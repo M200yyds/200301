@@ -1,6 +1,7 @@
 package com.hqyj.SpringBootDemo.modules.test.service.impl;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hqyj.SpringBootDemo.modules.common.vo.Result;
+import com.hqyj.SpringBootDemo.modules.common.vo.Result.ResultStatus;
 import com.hqyj.SpringBootDemo.modules.common.vo.SearchVo;
 import com.hqyj.SpringBootDemo.modules.test.dao.CityDao;
 import com.hqyj.SpringBootDemo.modules.test.entity.City;
@@ -46,6 +49,13 @@ public class CityServiceImpl implements CityService {
 		return new PageInfo<City>(
 				Optional.ofNullable(cityDao.getCitiesBySearchVo(searchVo))
 				.orElse(Collections.emptyList()));
+	}
+
+	@Override
+	public Result<City> insetCity(City city) {
+		city.setDateCreated(new Date());
+		cityDao.insetCity(city);
+		return new Result<City>(ResultStatus.SUCCESS.status, "Insert success", city);
 	}
 
 }
