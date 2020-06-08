@@ -361,7 +361,16 @@ thymeleaf页面数据处理
 			参数的获取方式：@Requestparam 的方式获取、request.getParameter的方式获取，我们需要重写两个方法
 		WebMvcConfig 注册类
 			注册了一个叫 FilterRegistrationBean bean，该 bean 添加上自定义 filter；
-	
+拦截器
+	需求：url 拦截器
+		path： /test/index
+		template：test/index
+	步骤一：导入 jsr ---- 无需额外导入
+	步骤二：配置
+		UrlInteceptor 实现 HandlerInterceptor，重写 pre、post、after 三个方法；
+		注册拦截器，注册类 WebMvcConfig 需要实现 WebMvcConfigurer 接口，实现 addInterceptors 方法，将自定义的拦截器注册到 InterceptorRegistry
+	步骤三：引用
+		书写拦截器业务逻辑；
 
 	
 			
