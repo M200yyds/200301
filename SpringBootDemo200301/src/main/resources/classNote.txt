@@ -326,7 +326,25 @@ redis
 	updateCity 接口
 	deleteCity 接口
 	migrateCitiesByCountryId 接口
+	----------
+	user、role、resource 三个实体 bean 的增删改查接口 ---- 该作业持续几天完成
 	
+============== Day 05 ====================
+thymeleaf
+	步骤一：pom
+		<!-- thymeleaf -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+	步骤二：配置
+		spring.thymeleaf.cache=false
+		spring.thymeleaf.enabled=true
+		spring.thymeleaf.encoding=UTF-8
+		spring.thymeleaf.mode=HTML5
+		spring.thymeleaf.prefix=classpath:/templates/
+		spring.thymeleaf.suffix=.html
+
 	
 			
 		
