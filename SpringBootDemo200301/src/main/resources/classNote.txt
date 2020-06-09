@@ -371,6 +371,22 @@ thymeleaf页面数据处理
 		注册拦截器，注册类 WebMvcConfig 需要实现 WebMvcConfigurer 接口，实现 addInterceptors 方法，将自定义的拦截器注册到 InterceptorRegistry
 	步骤三：引用
 		书写拦截器业务逻辑；
+		
+作业
+	引入 thymeleaf，实现页面碎片化，完成碎片组装器、test模块下的index页面；
+	过滤器
+	拦截器
+	user、role、resource 三张表接口 ---- 长期作业
+	
+============== Day 06 ====================
+aop
+	步骤一：无需引入 jar
+	步骤二：配置
+		书写切面类
+			指定“一个或多个 pointCout”
+			指定通知方式，每个方法和一个 pointcut 绑定
+	步骤三：应用
+		书写具体的业务逻辑
 
 	
 			
