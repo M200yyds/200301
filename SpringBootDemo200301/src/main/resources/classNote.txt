@@ -398,7 +398,26 @@ aop
 配置资源文件
 	将本地文件夹映射为spring 系统中的一个 resourcePath，可以用该 resourcePath 来定位本地资源；
 	
-			
+下载文件
+	步骤一：无需引入jar；
+	步骤二：配置
+	步骤三：应用
+		设置响应头信息
+			application/octet-stream
+			attachment; filename=npp.7.8.7.Installer.exe
+		使用 responseEntity下载
+
+端点监控
+	步骤一：
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+	步骤二：配置
+		# for actuator
+		management.endpoints.web.exposure.include=*
+	步骤三：应用
+		http://127.0.0.1/actuator
 		
 	
 	
