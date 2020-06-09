@@ -59,7 +59,7 @@ public class TestController {
 			}
 			
 			try {
-				String destFilePath = "D:\\upload\\" + file.getOriginalFilename();
+				String destFilePath = "D:\\upload" + File.separator + file.getOriginalFilename();
 				File destFile = new File(destFilePath);
 				file.transferTo(destFile);
 				
@@ -89,8 +89,10 @@ public class TestController {
 			return "redirect:/test/index";
 		}
 		
+		String resourcePath = "/upload/" + file.getOriginalFilename();
+		String destFilePath = "D:" + resourcePath;
+//		String destFilePath = "/upload/" + file.getOriginalFilename();
 		try {
-			String destFilePath = "D:\\upload\\" + file.getOriginalFilename();
 			File destFile = new File(destFilePath);
 			file.transferTo(destFile);
 		} catch (IllegalStateException | IOException e) {
@@ -100,6 +102,7 @@ public class TestController {
 		}
 		
 		redirectAttributes.addFlashAttribute("message", "Upload success.");
+		redirectAttributes.addFlashAttribute("resourcePath", resourcePath);
 		return "redirect:/test/index";
 	}
 	
@@ -119,8 +122,10 @@ public class TestController {
 		modelmap.addAttribute("changeType", "checkbox");
 		modelmap.addAttribute("baiduUrl", "/test/log");
 		modelmap.addAttribute("city", cities.get(0));
+//		modelmap.addAttribute("shopLogo", 
+//				"http://cdn.duitang.com/uploads/item/201308/13/20130813115619_EJCWm.thumb.700_0.jpeg");
 		modelmap.addAttribute("shopLogo", 
-				"http://cdn.duitang.com/uploads/item/201308/13/20130813115619_EJCWm.thumb.700_0.jpeg");
+				"/upload/1111.png");
 		modelmap.addAttribute("country", country);
 		modelmap.addAttribute("cities", cities);
 		modelmap.addAttribute("updateCityUri", "/api/city");

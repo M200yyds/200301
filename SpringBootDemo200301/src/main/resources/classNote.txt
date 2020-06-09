@@ -395,6 +395,8 @@ aop
 		页面书写上传文件form，指定 mutipart/form-data
 		控制器，指定的consumer类型和页面一致，使用 MutipartFile 来接收文件，使用transferTo来保存文件、使用redirect进行请求转发，使用redirectAttribute来进行参数传递；
 
+配置资源文件
+	将本地文件夹映射为spring 系统中的一个 resourcePath，可以用该 resourcePath 来定位本地资源；
 	
 			
 		
