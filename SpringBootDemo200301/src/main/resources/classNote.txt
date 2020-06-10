@@ -383,7 +383,7 @@ aop
 	步骤一：无需引入 jar
 	步骤二：配置
 		书写切面类
-			指定“一个或多个 pointCout”
+			指定“一个或多个 pointCut”
 			指定通知方式，每个方法和一个 pointcut 绑定
 	步骤三：应用
 		书写具体的业务逻辑
@@ -418,7 +418,20 @@ aop
 		management.endpoints.web.exposure.include=*
 	步骤三：应用
 		http://127.0.0.1/actuator
-		
+	
+作业
+	aop
+	文件上传下载
+	配置资源文件
+	开启端点
+	
+============== Day 07 ====================
+项目开发流程
+敏捷开发&Scrum
+	https://blog.csdn.net/sinat_40770656/article/details/95058150
+寻找前端模版
+拆解前端模版
+	
 	
 	
 	
