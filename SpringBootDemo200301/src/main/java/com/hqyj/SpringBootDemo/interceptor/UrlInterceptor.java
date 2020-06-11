@@ -37,7 +37,7 @@ public class UrlInterceptor implements HandlerInterceptor {
 			if (path.startsWith("/")) {
 				path = path.substring(1);
 			}
-			modelAndView.getModelMap().addAttribute("template", path.toLowerCase());
+			modelAndView.getModelMap().addAttribute("template", path);
 		}
 		
 		HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);

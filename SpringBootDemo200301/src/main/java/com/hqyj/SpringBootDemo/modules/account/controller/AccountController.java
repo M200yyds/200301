@@ -22,4 +22,20 @@ public class AccountController {
 	public String registerPage() {
 		return "indexSimple";
 	}
+	
+	/**
+	 * http://127.0.0.1/account/shoppingLogin
+	 */
+	@RequestMapping("/shoppingLogin")
+	public String shoppingLoginPage() {
+		return "shoppingIndexSimple";
+	}
+	
+	/**
+	 * http://127.0.0.1/account/shoppingRegister
+	 */
+	@RequestMapping("/shoppingRegister")
+	public String shoppingRegister() {
+		return "shoppingIndexSimple";
+	}
 }
