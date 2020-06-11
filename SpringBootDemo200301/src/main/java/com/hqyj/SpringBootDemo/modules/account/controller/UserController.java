@@ -24,4 +24,9 @@ public class UserController {
 	public Result<User> insertUser(@RequestBody User user) {
 		return userService.insertUser(user);
 	}
+	
+	@PostMapping(value = "/login", consumes = "application/json")
+	public Result<User> login(@RequestBody User user) {
+		return userService.login(user);
+	}
 }
