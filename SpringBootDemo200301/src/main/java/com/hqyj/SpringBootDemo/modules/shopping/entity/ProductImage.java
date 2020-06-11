@@ -11,23 +11,23 @@ import javax.persistence.Table;
 public class ProductImage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	private Integer pid;
+	private int id;
+	private int pid;
 	private String type;
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public Integer getPid() {
+	public int getPid() {
 		return pid;
 	}
 
-	public void setPid(Integer pid) {
+	public void setPid(int pid) {
 		this.pid = pid;
 	}
 
@@ -38,4 +38,5 @@ public class ProductImage {
 	public void setType(String type) {
 		this.type = type;
 	}
+
 }
