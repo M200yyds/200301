@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "order")
+@Table(name = "s_order")
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class Order {
 	private String userMessage;
 	private String status;
 	private float totalPrice;
-	private int totalNumber;;
+	private int totalNumber;
 	private LocalDateTime createDate;
 	private LocalDateTime payDate;
 	private LocalDateTime deliveryDate;
