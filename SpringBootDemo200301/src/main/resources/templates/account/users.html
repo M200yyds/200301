@@ -1,6 +1,4 @@
-<!-- jquery.dataTables -->
-<link th:href="@{http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css}" rel="stylesheet" >
-<!-- dataTables -->
+<!-- dataTables.bootstrap -->
 <link th:href="${'/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css'}" rel="stylesheet" />
 <!-- buttons.bootstrap -->
 <link th:href="${'/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css'}" rel="stylesheet" />
@@ -272,12 +270,12 @@ function initRoles(rolesDiv, roleName) {
 		type : "get",
 		contentType: "application/json",
 		success : function (rs) {
-			$("#" + rolesDiv + "").append("<label class='middle'>");
+			var checkboxs = "";
 			$.each(rs, function(i, value) {
-				$("#" + rolesDiv + "").append("<input name='"+ roleName + "' value='" + 
-						value.roleId +"' type='checkbox'>" + value.roleName + "&nbsp;&nbsp;");
+				checkboxs += "<input name='"+ roleName + "' value='" + 
+						value.roleId +"' type='checkbox'>" + value.roleName + "&nbsp;&nbsp;";
 			});
-			$("#" + rolesDiv + "").append("</label>");
+			$("#" + rolesDiv + "").append(checkboxs);
 		},
 		error : function (data) {
 			layer.alert(data.responseText, {icon: 0});
