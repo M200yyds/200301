@@ -444,8 +444,31 @@ aop
 ============== Day 09 ====================
 dashboard页面
 users页面
-	
-	
+
+============== Day 10 ====================
+users页面
+	第一步：准备页面控制器、页面
+		sideBar.html ---- 修改 users 路径；
+		AccountController ---- 新增一个控制器，返回 users 页面
+		新增 users 页面；
+		测试，http://127.0.0.1/account/users， 查看是否成功
+	第二步：将模版移植到 users 页面
+		移植模版上引用的 css、js
+		移植模版上的框架结构
+		选择模版上的表格类型，移植表格
+	第三步：表格数据交互
+		准备：DataTable 插件运用规则
+		改造 users 页面 table 元素；
+		书写 js 初始化 table 数据，initTable 方法
+		后台书写相应的 users 多条件查询接口
+		在加载页面时候调用 initTable 方法
+	第四部：新增 user
+		准备：bootstrap 模态框使用
+		页面添加新增按钮、添加模态框（写成新的页面，使用thymeleaf replace进行替换）
+		js 处理模态框的初始化：清空 input、初始化所有 roles
+		写 roles 相关接口
+		准备新增 user 的 js方法，并绑定到模态框上的 submit 按钮上
+		书写新增 user 的相关接口
 	
 	
 	

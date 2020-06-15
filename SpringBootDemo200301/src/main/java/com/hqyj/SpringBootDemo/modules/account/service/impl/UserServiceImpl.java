@@ -78,4 +78,37 @@ public class UserServiceImpl implements UserService {
 				.orElse(Collections.emptyList()));
 	}
 
+	@Override
+	public User getUserByUserId(int userId) {
+		return userDao.getUserByUserId(userId);
+	}
+
+	@Override
+	@Transactional
+	public Result<User> updateUser(User user) {
+		User userTemp = getUserByUserName(user.getUserName());
+		if (userTemp != null) {
+			return new Result<User>(ResultStatus.FAILD.status, "User name is repeat.");
+		}
+		
+		userDao.updateUser(user);
+		
+		userRoleDao.deleteRolesByUserId(user.getUserId());
+		List<Role> roles = user.getRoles();
+		if (roles != null && roles.size() > 0) {
+			for (Role role : roles) {
+				userRoleDao.insertUserRole(user.getUserId(), role.getRoleId());
+			}
+		}
+		
+		return new Result<User>(ResultStatus.SUCCESS.status, "Update success.", user);
+	}
+	
+	@Override
+	public Result<Object> deleteUser(int userId) {
+		userDao.deleteUser(userId);
+		userRoleDao.deleteRolesByUserId(userId);
+		return new Result<Object>(ResultStatus.SUCCESS.status, "Delete success.");
+	}
+
 }
