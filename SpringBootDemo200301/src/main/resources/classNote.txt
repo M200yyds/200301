@@ -462,13 +462,25 @@ users页面
 		书写 js 初始化 table 数据，initTable 方法
 		后台书写相应的 users 多条件查询接口
 		在加载页面时候调用 initTable 方法
-	第四部：新增 user
+	第四步：新增 user
 		准备：bootstrap 模态框使用
 		页面添加新增按钮、添加模态框（写成新的页面，使用thymeleaf replace进行替换）
 		js 处理模态框的初始化：清空 input、初始化所有 roles
 		写 roles 相关接口
 		准备新增 user 的 js方法，并绑定到模态框上的 submit 按钮上
 		书写新增 user 的相关接口
+	第五步：编辑 user
+		页面每一行 编辑 按钮绑定模态框、添加编辑模态框（js初始化模态框）
+		书写后台接口，getUserById，需要将该 user 对象已经设置好的 roles 列表查询出来
+		准备 js updateUser 方法
+		后台书写 updateUser 接口，注意修改当前用户角色列表
+		前后端联调
+		
+============== Day 10 ====================
+role页面
+	第一步：准备 roles、roleAdd、roleEdit 页面 ---- 将 users 相关页面作为母版，替换页面关键字 user 替换为 role
+	第二步：准备接口和页面控制器
+	第三步：进行前端页面和接口的联调
 	
 	
 	

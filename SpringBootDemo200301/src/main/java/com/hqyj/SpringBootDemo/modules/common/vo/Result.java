@@ -45,7 +45,7 @@ public class Result<T> {
 	}
 
 	public enum ResultStatus {
-		SUCCESS(200), FAILD(500);
+		SUCCESS(200), FAILED(500);
 
 		public int status;
 

@@ -46,4 +46,20 @@ public class AccountController {
 	public String usersPage() {
 		return "index";
 	}
+	
+	/**
+	 * http://127.0.0.1/account/roles
+	 */
+	@RequestMapping("/roles")
+	public String rolesPage() {
+		return "index";
+	}
+	
+	/**
+	 * http://127.0.0.1/account/resources
+	 */
+	@RequestMapping("/resources")
+	public String resourcesPage() {
+		return "index";
+	}
 }
