@@ -11,7 +11,23 @@ public class ShoppingController {
 	 * 127.0.0.1/shopping/home
 	 */
 	@RequestMapping("/home")
-	public String testPage() {
+	public String homePage() {
+		return "shoppingIndex";
+	}
+	
+	/**
+	 * 127.0.0.1/shopping/category
+	 */
+	@RequestMapping("/category")
+	public String categoryPage() {
+		return "shoppingIndex";
+	}
+	
+	/**
+	 * 127.0.0.1/shopping/product
+	 */
+	@RequestMapping("/product")
+	public String productPage() {
 		return "shoppingIndex";
 	}
 }
