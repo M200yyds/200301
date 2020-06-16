@@ -1,7 +1,6 @@
 package com.hqyj.SpringBootDemo.modules.account.service.impl;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,30 +28,6 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	@Autowired
 	private UserRoleDao userRoleDao;
-
-	@Override
-	@Transactional
-	public Result<User> insertUser(User user) {
-		User userTemp = getUserByUserName(user.getUserName());
-		if (userTemp != null) {
-			return new Result<User>(ResultStatus.FAILD.status, "User name is repeat.");
-		}
-		
-		user.setCreateDate(new Date());
-		user.setPassword(MD5Util.getMD5(user.getPassword()));
-		
-		userDao.insertUser(user);
-		
-		userRoleDao.deleteRolesByUserId(user.getUserId());
-		List<Role> roles = user.getRoles();
-		if (roles != null && roles.size() > 0) {
-			for (Role role : roles) {
-				userRoleDao.insertUserRole(user.getUserId(), role.getRoleId());
-			}
-		}
-		
-		return new Result<User>(ResultStatus.SUCCESS.status, "Insert success.", user);
-	}
 
 	@Override
 	public User getUserByUserName(String userName) {
@@ -84,31 +59,35 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public Result<Object> deleteUser(int userId) {
+		userDao.deleteUser(userId);
+		userRoleDao.deleteRolesByUserId(userId);
+		return new Result<Object>(ResultStatus.SUCCESS.status, "Delete success.");
+	}
+
+	@Override
 	@Transactional
-	public Result<User> updateUser(User user) {
+	public Result<User> editUser(User user) {
 		User userTemp = getUserByUserName(user.getUserName());
-		if (userTemp != null) {
+		if (userTemp != null && userTemp.getUserId() != user.getUserId()) {
 			return new Result<User>(ResultStatus.FAILD.status, "User name is repeat.");
 		}
-		
-		userDao.updateUser(user);
-		
-		userRoleDao.deleteRolesByUserId(user.getUserId());
+
+		if (user.getUserId() > 0) {
+			userDao.updateUser(user);
+			userRoleDao.deleteRolesByUserId(user.getUserId());
+		} else {
+			userDao.insertUser(user);
+		}
+
 		List<Role> roles = user.getRoles();
 		if (roles != null && roles.size() > 0) {
 			for (Role role : roles) {
 				userRoleDao.insertUserRole(user.getUserId(), role.getRoleId());
 			}
 		}
-		
-		return new Result<User>(ResultStatus.SUCCESS.status, "Update success.", user);
-	}
-	
-	@Override
-	public Result<Object> deleteUser(int userId) {
-		userDao.deleteUser(userId);
-		userRoleDao.deleteRolesByUserId(userId);
-		return new Result<Object>(ResultStatus.SUCCESS.status, "Delete success.");
+
+		return new Result<User>(ResultStatus.SUCCESS.status, "Edit success.", user);
 	}
 
 }
