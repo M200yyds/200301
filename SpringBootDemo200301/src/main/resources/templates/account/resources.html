@@ -13,7 +13,7 @@
 		<div class="page-title">
 			<div class="title_left">
 				<h3>
-					Account / Users <small>This is users list.</small>
+					Account / Resources <small>This is resources list.</small>
 				</h3>
 			</div>
 		
@@ -37,7 +37,7 @@
 				<div class="x_panel">
 					<!-- <div class="x_title">
 						<h2>
-							Default Example <small>Users</small>
+							Default Example <small>Resources</small>
 						</h2>
 						<ul class="nav navbar-right panel_toolbox">
 							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -56,8 +56,8 @@
 					<div class="x_title">
 						<ul class="nav panel_toolbox" style="margin-left:0; float: left;">
 							<li>
-								<button type="button" class="btn btn-primary" id="addUserBtn"
-									data-toggle="modal" data-target="#userAddModal">新    增</button>
+								<button type="button" class="btn btn-primary" id="addResourceBtn"
+									data-toggle="modal" data-target="#resourceAddModal">新    增</button>
 							</li>
 						</ul>
 						<ul class="nav navbar-right panel_toolbox">
@@ -85,10 +85,9 @@
 										style="width: 100%">
 										<thead>
 											<tr>
-												<th>User Id</th>
-												<th>User Name</th>
-												<th>Password</th>
-												<th>Create Date</th>
+												<th>Resource Id</th>
+												<th>Resource Name</th>
+												<th>permission</th>
 												<th>Operation</th>
 											</tr>
 										</thead>
@@ -104,8 +103,8 @@
 	</div>
 </div>
 
-<div th:replace="account/userAdd :: userAdd"></div>
-<div th:replace="account/userEdit :: userEdit"></div>
+<div th:replace="account/resourceAdd :: resourceAdd"></div>
+<div th:replace="account/resourceEdit :: resourceEdit"></div>
 
 <!-- jquery.dataTables -->
 <script th:src="${'/vendors/datatables.net/js/jquery.dataTables.min.js'}" type="text/javascript"></script>
@@ -133,24 +132,24 @@
 $(document).ready(function() {
 	initTable(DEFAULT_PAGE_SIZE);
 	
-	$("#addUserBtn").bind("click", function() {
-		initUserAdd();
+	$("#addResourceBtn").bind("click", function() {
+		initResourceAdd();
 	});
 	
-	$("#userAddBtn").bind("click", function() {
-		insertUser();
+	$("#resourceAddBtn").bind("click", function() {
+		insertResource();
 	});
 	
-	$("#userEditBtn").bind("click", function() {
-		updateUser();
+	$("#resourceEditBtn").bind("click", function() {
+		updateResource();
 	});
 });
 
-function deleteUser(userId) {
+function deleteResource(resourceId) {
 	bootbox.confirm("Are you sure?", function(result) {
 		if(result) {
 			$.ajax({
-				url : "/api/user/" + userId,
+				url : "/api/resource/" + resourceId,
 				type : "delete",
 				contentType: "application/json",
 				success : function (data) {
@@ -168,11 +167,12 @@ function deleteUser(userId) {
 	});
 }
 
-//修改 user
-function updateUser() {
-	var user = {};
-	user.userName = $("#userNameForEditPage").val();
-	user.userId = $("#userIdForEditPage").val();
+//修改 resource
+function updateResource() {
+	var resource = {};
+	resource.resourceName = $("#resourceNameForEditPage").val();
+	resource.resourceId = $("#resourceIdForEditPage").val();
+	resource.permission = $("#permissionForEditPage").val();
 	var roles = new Array();
 	$.each($("input[name='roleForEditPage']"), function(){
 		if(this.checked){
@@ -181,13 +181,13 @@ function updateUser() {
 			roles.push(role);
 		}
 	});
-	user.roles = roles;
+	resource.roles = roles;
 	
 	$.ajax({
-		url : "/api/user",
+		url : "/api/resource",
 		type : "put",
 		contentType: "application/json",
-		data : JSON.stringify(user),
+		data : JSON.stringify(resource),
 		success : function (data) {
 			if (data.status == 200) {
 				initTable(DEFAULT_PAGE_SIZE);
@@ -202,16 +202,17 @@ function updateUser() {
 }
 
 //初始化编辑页面
-function initEditModal(userId) {
+function initEditModal(resourceId) {
 	initRoles("rolesForEditPage", "roleForEditPage");
 	
 	$.ajax({
-		url : "/api/user/" + userId,
+		url : "/api/resource/" + resourceId,
 		type : "get",
 		contentType: "application/json",
 		success : function (rs) {
-			$("#userIdForEditPage").val(rs.userId);
-			$("#userNameForEditPage").val(rs.userName);
+			$("#resourceIdForEditPage").val(rs.resourceId);
+			$("#resourceNameForEditPage").val(rs.resourceName);
+			$("#permissionForEditPage").val(rs.permission);
 			$.each(rs.roles, function(i, item){
 				$("input[name='roleForEditPage'][value=" + item.roleId + "]")
 					.attr("checked","checked");
@@ -223,11 +224,11 @@ function initEditModal(userId) {
 	});
 }
 
-//添加user
-function insertUser() {
-	var user = {};
-	user.userName = $("#userNameForAddPage").val();
-	user.password = $("#passwordForAddPage").val();
+// 添加 resource
+function insertResource() {
+	var resource = {};
+	resource.resourceName = $("#resourceNameForAddPage").val();
+	resource.permission = $("#permissionForAddPage").val();
 	var roles = new Array();
 	$.each($("input[name='roleForAddPage']"), function(){
 		if(this.checked){
@@ -236,13 +237,13 @@ function insertUser() {
 			roles.push(role);
 		}
 	});
-	user.roles = roles;
+	resource.roles = roles;
 	
 	$.ajax({
-		url : "/api/user",
+		url : "/api/resource",
 		type : "post",
 		contentType: "application/json",
-		data : JSON.stringify(user),
+		data : JSON.stringify(resource),
 		success : function (data) {
 			if (data.status == 200) {
 				initTable(DEFAULT_PAGE_SIZE);
@@ -256,9 +257,9 @@ function insertUser() {
 	});
 }
 
-function initUserAdd() {
-	$("#userNameForAddPage").val("");
-	$("#passwordForAddPage").val("");
+function initResourceAdd() {
+	$("#resourceNameForAddPage").val("");
+	$("#permissionForAddPage").val("");
 	initRoles("rolesForAddPage", "roleForAddPage");
 }
 
@@ -290,7 +291,7 @@ function initTable(pageSize) {
 			searchVo.keyWord = data.search.value;
 
 			$.ajax({
-				url : "/api/users",
+				url : "/api/resources",
 				type : "post",
 				contentType: "application/json",
 				data : JSON.stringify(searchVo),
@@ -316,8 +317,8 @@ function initTable(pageSize) {
 					var gearDatas = [];
 					for (var i = 0; i < rs.list.length; i++) {
 						//包装行数据
-						var rowData = new TData(rs.list[i].userId, rs.list[i].userName, 
-								rs.list[i].password, rs.list[i].createDate);
+						var rowData = new TData(rs.list[i].resourceId, rs.list[i].resourceName, 
+								rs.list[i].permission);
 						// 将行数据放到数组里
 						gearDatas.push(rowData);
 					}
@@ -332,25 +333,23 @@ function initTable(pageSize) {
 			});
 		},
 		"columns": [ //定义行数据字段
-			{data: 'userId', name: "user_id", sortable: true}, 
-			{data: 'userName', name: "user_name", sortable: true}, 
-			{data: 'password', name: "password", sortable: true}, 
-			{data: 'createDate', name: "create_date", sortable: true}, 
+			{data: 'resourceId', name: "resource_id", sortable: true}, 
+			{data: 'resourceName', name: "resource_name", sortable: true}, 
+			{data: 'permission', name: "permission", sortable: true}, 
 			{data: 'operate', width: '80px', sortable: false}
 		]
 	});
 }
 
 //行数据结构
-function TData(userId, userName, password, createDate) {
-	this.userId = userId;
-	this.userName = userName;
-	this.password = password;
-	this.createDate = createDate;
+function TData(resourceId, resourceName, permission) {
+	this.resourceId = resourceId;
+	this.resourceName = resourceName;
+	this.permission = permission;
 	this.operate = function () {
-		return "<a href='#' class='btn_editcolor' data-toggle='modal' data-target='#userEditModal' " + 
-			"onclick='initEditModal(\"" + userId + "\")'>编辑</a>&nbsp;" + 
-			"<a href='javascript:void(0);' onclick='deleteUser(\"" + userId + "\")' class='btn_editcolor'>删除</a>";
+		return "<a href='#' class='btn_editcolor' data-toggle='modal' data-target='#resourceEditModal' " + 
+			"onclick='initEditModal(\"" + resourceId + "\")'>编辑</a>&nbsp;" + 
+			"<a href='javascript:void(0);' onclick='deleteResource(\"" + resourceId + "\")' class='btn_editcolor'>删除</a>";
 	}
 }
 </script>

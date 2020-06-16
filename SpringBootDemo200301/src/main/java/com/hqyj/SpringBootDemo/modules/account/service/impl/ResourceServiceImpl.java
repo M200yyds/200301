@@ -30,8 +30,9 @@ public class ResourceServiceImpl implements ResourceService {
 	@Override
 	@Transactional
 	public Result<Resource> editResource(Resource resource) {
-		if (resource == null) {
-			return new Result<Resource>(500, "resource info is null");
+		Resource resourceTemp = resourceDao.getResourceByPermission(resource.getPermission());
+		if (resourceTemp != null && resourceTemp.getResourceId() != resource.getResourceId()) {
+			return new Result<Resource>(ResultStatus.FAILED.status, "Resource permission is repeat.");
 		}
 
 		// 添加 resource
@@ -49,7 +50,7 @@ public class ResourceServiceImpl implements ResourceService {
 			}
 		}
 
-		return new Result<Resource>(200, "success", resource);
+		return new Result<Resource>(ResultStatus.SUCCESS.status, "success", resource);
 	}
 
 	@Override

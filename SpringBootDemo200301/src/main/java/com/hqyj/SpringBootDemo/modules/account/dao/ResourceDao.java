@@ -60,8 +60,11 @@ public interface ResourceDao {
 			@Result(column="resource_id", property="resourceId"),
 			@Result(column="resource_id",property="roles",
 					javaType=List.class,
-					many=@Many(select="com.thornBird.sbd.modules.account.dao."
+					many=@Many(select="com.hqyj.SpringBootDemo.modules.account.dao."
 							+ "RoleDao.getRolesByResourceId"))
 		})
 	Resource getResourceById(int resourceId);
+	
+	@Select("select * from resource where permission = #{permission}")
+	Resource getResourceByPermission(String permission);
 }
