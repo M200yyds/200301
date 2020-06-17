@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.pagehelper.PageInfo;
 import com.hqyj.SpringBootDemo.modules.account.entity.User;
@@ -65,5 +68,22 @@ public class UserController {
 	@DeleteMapping("/user/{userId}")
 	public Result<Object> deleteUser(@PathVariable int userId) {
 		return userService.deleteUser(userId);
+	}
+	
+	/**
+	 * 127.0.0.1/api/userImage ---- post
+	 */
+	@PostMapping(value="/userImage", consumes="multipart/form-data")
+	public Result<String> uploadUserImage(@RequestParam MultipartFile userImage, 
+			RedirectAttributes redirectAttributes) {
+		return userService.uploadUserImage(userImage);
+	}
+	
+	/**
+	 * 127.0.0.1/api/profile ---- put
+	 */
+	@PutMapping(value = "/profile", consumes = "application/json")
+	public Result<User> updateUserProfile(@RequestBody User user) {
+		return userService.updateUserProfile(user);
 	}
 }
